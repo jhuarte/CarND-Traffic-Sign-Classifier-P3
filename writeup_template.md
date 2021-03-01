@@ -29,6 +29,9 @@ The goals / steps of this project are the following:
 [image4]: ./images/descarga.png "Web images"
 [image5]: ./images/tv_1_accuracy.png
 [image6]: ./images/tv_2_accuracy.png
+[image7]: ./images/p1.png "Web images"
+[image8]: ./images/p2.png
+[image9]: ./images/p3.png
 
 ## Dependencies
 In order to fullfil all the specications of the project, I decided to use Google Colab. The idea is to speed up as much as possible the training process using the GPU/TPU functionality. 
@@ -397,6 +400,7 @@ For the first image, the model is predict a stop sign (probability of 0.32) but 
 | 0.07	      		| Keep right						 				|
 | 0.03			| Bicycles crossing      							|
 
+![alt text][image7]
 
 For the second image the prediction is much better, 0.92 of probability of been a `Stop`.
 
@@ -408,6 +412,8 @@ For the second image the prediction is much better, 0.92 of probability of been 
 | 0.001	      		| Turn left ahead						 				|
 | 0.0004			| Ahead only      							|
 
+![alt text][image8]
+
 For the third the prediction is very good, the system is really sure that the sign is a `Yield`:
 
 | Probability			        |     Prediction	        					| 
@@ -418,6 +424,7 @@ For the third the prediction is very good, the system is really sure that the si
 | 0.00	      		| Turn left ahead					 				|
 | 0.00			| Speed limit (20km/h)     							|
 
+![alt text][image9]
 
 #### Conclusions
 
