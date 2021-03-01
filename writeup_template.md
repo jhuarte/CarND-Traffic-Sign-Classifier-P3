@@ -23,7 +23,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Visualization"
+[image1]: ./examples/visualization.jpg "Dataset distribution (train (B), validation (G), test (O)"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
@@ -37,7 +37,7 @@ In order to fullfil all the specications of the project, I decided to use Google
 
 ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
 
-A I've stored the dataset on google drive space, the first thing I did was to grant access to the working directory. For that purpose I create a variable named `root_dir` to point to my data workspace. 
+A I've stored the dataset on google drive space, the first thing I did was to grant access to the working directory. For that purpose I create a variable named `root_dir` to point to my data workspace. If you want to run this code on your own system remember to update this variable.
 
 ```python
 from google.colab import drive
@@ -47,27 +47,54 @@ drive.mount('/content/drive')
 root_dir = '/content/drive/MyDrive/Colab Notebooks/CarND-Traffic-Sign-Classifier-Project/'
 ```
 
-As default, colab use the version 2 of `tensorflow` at this moment, so all the code learned from the leassons have been updated to this version.
+As default, colab use the version 2 of `tensorflow` at this moment, so all the code learned from the leassons have been updated to this version (including `keras`functions). 
 
 ```python 
 # Check the tensor flow version
 print(tf.__version__)
 2.4.1
 ```
+
 ## Writeup / README
 
 ### Data Set Summary & Exploration
 
 #### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
-I used the pandas library to calculate summary statistics of the traffic
-signs data set:
+I used the `pandas`,`numpy` and `matplotlib.pyplot` libraroes to calculate summary statistics of the traffic signs data set and plot the results. The general numbers obtained are:
 
-* The size of training set is ?
-* The size of the validation set is ?
-* The size of test set is ?
-* The shape of a traffic sign image is ?
-* The number of unique classes/labels in the data set is ?
+* Number of training examples = `34799`
+* Number of testing examples = `12630`
+* Image data shape = `(32, 32)`
+* Number of classes = `43`
+
+I've used `pandas` to read the `cvs` file and obtain the description of each `sign` (`signals = pd.read_csv(root_dir + 'signnames.csv')`. 
+
+```python
+# Read the CVS file with the ClassId's and the signal names
+signals = pd.read_csv(root_dir + 'signnames.csv')
+
+def plt_bar_dataset(y_train, y_test, y_valid):
+  # Explore the training dataset
+  train_values, train_counts = np.unique(y_train, return_counts = True)
+  plt.bar(train_values, train_counts)
+  # Explore the test dataset
+  test_values, test_counts = np.unique(y_test, return_counts = True)
+  plt.bar(test_values, test_counts)
+  # Explore the test dataset
+  valid_values, valid_counts = np.unique(y_valid, return_counts = True)
+  plt.bar(valid_values, valid_counts)
+
+  return train_counts, test_counts, valid_counts
+
+#Plor the original distribution of the data set
+train_counts = plt_bar_dataset(y_train, y_test, y_valid)
+```
+
+In the next represent the distribution of the diferent signs on the `train dataset (blue)', 'validation dataset (orange)` and `test dataset (green)`. As we can see the distribution is not uniform and we have some `classes (signs)` with a very short ocurrence (ie: `sign_class = 0 (Speed limit (20km/h))` and other with very high ocurrence (ie: `sign_class = 1 (Speed limit (50km/h))`.
+
+
+
 
 #### 2. Include an exploratory visualization of the dataset.
 
