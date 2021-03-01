@@ -28,7 +28,7 @@ The goals / steps of this project are the following:
 [image3]: ./images/ext_60kmh.png "Preprocessing images"
 [image4]: ./images/descarga.png "Web images"
 [image5]: ./images/tv_1_accuracy.png
-[image6]: ./images/tv_1_loss.png
+[image6]: ./images/tv_2_accuracy.png
 
 ## Dependencies
 In order to fullfil all the specications of the project, I decided to use Google Colab. The idea is to speed up as much as possible the training process using the GPU/TPU functionality. 
@@ -332,7 +332,7 @@ I tried different values of each hyperparameters, specially for the `learning_ra
 
 I started with the LeNet architecture witout any type of regularization and the system prepared for RGB images `(32,32,32,3)`. I trainned the CNN with the training dataset (without any preprocessing) and the results was not very good from what was expected, so clearly there was a problem of under fitting.
 
-![alt text][image5]![alt text][image6]
+![alt text][image5]
 
 ```
 Epoch 40/40
@@ -346,6 +346,8 @@ My final model results were:
 * validation set accuracy of 0.9803
 * test set accuracy of 0.9617
 
+
+![alt text][image6]
 ```
 Epoch 40/40
 1088/1088 [==============================] - 3s 3ms/step - loss: 0.0815 - accuracy: 0.9757 - val_loss: 0.0848 - val_accuracy: 0.9803
