@@ -276,7 +276,6 @@ My final model consisted of the following layers, based on the LeNet architectur
 | dropout_1 (Dropout)					|	(None, 84)											|0|`rate = 0.5`|
 | dense_2 (Dense)|(None, 43)|       |3655|`activation = 'relu`|
 
-|   | |
 |:------------:|:------------------------:|
 | Total params:| 64,511|
 | Trainable params:| 64,511|
@@ -310,9 +309,30 @@ model.add(layers.Dense(num_classes))
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+To train the model, at the begining I used the stotastic gradient descent optimizer but after some trials a research I decide to change tp the `Adam` optimizer, that is in general a better optimizaer in terms of performance. 
+
+```python
+pt = optimizers.Adam(learning_rate = 0.001)
+
+model.compile(optimizer = opt,
+              loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True),
+              metrics = ['accuracy'])
+```
+
+I tunned four different hyperparamters to validate the system:
+
+* Learning rate: `0.001`
+* Batch size: `128`
+* Number of epeochs: `100`
+* Steps per epoch: `math.ceil(len(x_train) / batch_size)`
+
+I tried different values of each hyperparameters, specially for the `learning_rate` and the number of `epochs` until I decided to change all the proyecto to colab. batch sizes `(32, 64 and 128)` and `128` was a good balance between speed and accuracy.
+
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+
+I started with the LeNet architecture witout any type of regularization and the system prepared for RGB images `(32,32,32,3)`. Since the first trainings
+
 
 My final model results were:
 * training set accuracy of ?
