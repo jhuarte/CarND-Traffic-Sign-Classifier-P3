@@ -262,46 +262,52 @@ def augment_dataset(x_dataset, y_dataset, min_occurrence):
 
 My final model consisted of the following layers, based on the LeNet architecture:
 
-| Layer         		|     Description	        					| 
+| Layer (type)         		|     Output Shape	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
-Model: "sequential"
-_________________________________________________________________
-Layer (type)                 Output Shape              Param #   
-=================================================================
-conv2d (Conv2D)              (None, 28, 28, 6)         156       
-_________________________________________________________________
-max_pooling2d (MaxPooling2D) (None, 14, 14, 6)         0         
-_________________________________________________________________
-conv2d_1 (Conv2D)            (None, 10, 10, 16)        2416      
-_________________________________________________________________
-max_pooling2d_1 (MaxPooling2 (None, 5, 5, 16)          0         
-_________________________________________________________________
-flatten (Flatten)            (None, 400)               0         
-_________________________________________________________________
-dense (Dense)                (None, 120)               48120     
-_________________________________________________________________
-dropout (Dropout)            (None, 120)               0         
-_________________________________________________________________
-dense_1 (Dense)              (None, 84)                10164     
-_________________________________________________________________
-dropout_1 (Dropout)          (None, 84)                0         
-_________________________________________________________________
-dense_2 (Dense)              (None, 43)                3655      
+| Input         		| 32x32x1 Grayscale image   							| 
+| conv2d (Conv2D)     	| (None, 28, 28, 6)  	|
+| max_pooling2d (MaxPooling2D)					|	(None, 14, 14, 6)											|
+| conv2d (Conv2D)     	| (None, 10, 10, 16)  	|
+| max_pooling2d (MaxPooling2D)					|	(None, 5, 5, 16)											|
+| flatten (Flatten)					|	(None, 400)											|
+| dense (Dense)					|	(None, 120)											|
+| dropout (Dropout)					|	(None, 120)											|
+| dense_1 (Dense)					|	(None, 84)											|
+| dropout_1 (Dropout)					|	(None, 84)											|
+| dense_2 (Dense)|(None, 43)| 3655      
+
+
 =================================================================
 Total params: 64,511
 Trainable params: 64,511
 Non-trainable params: 0
 _________________________________________________________________
+
+```python
+# Parameters
+conv1_filters = 6
+conv2_filters = 16
+fc1_units = 120
+fc2_units = 84
+num_classes = n_classes
+
+# Architecture
+model = models.Sequential()
+# Layers
+# Convolutional layers
+model.add(layers.Conv2D(conv1_filters, (5, 5), activation = 'relu', input_shape = (32, 32, 1)))
+model.add(layers.MaxPooling2D(pool_size = (2, 2), strides = 2, padding = 'SAME'))
+model.add(layers.Conv2D(conv2_filters, (5, 5), activation = 'relu'))
+model.add(layers.MaxPooling2D(pool_size = (2, 2), strides = 2, padding = 'SAME'))
+# Fully connected layers
+model.add(layers.Flatten())
+model.add(layers.Dense(fc1_units, activation = 'relu'))
+model.add(layers.Dropout(rate = 0.5))
+model.add(layers.Dense(fc2_units, activation = 'relu'))
+model.add(layers.Dropout(rate = 0.5))
+
+model.add(layers.Dense(num_classes))
+```
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
