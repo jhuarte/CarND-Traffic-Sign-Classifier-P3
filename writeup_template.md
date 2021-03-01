@@ -2,7 +2,7 @@
 
 ## Overview
 
-On this project, I implemented a convolutional neural network (CNN's) based on the LeNet implementation to classify traffic signs. The dataset used to train, validate and test the CNN are the images from the German Traffic Sign Dataset.
+On this project, I implemented a convolutional neural network (CNN's) based on the [LeNet](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf) architecture developed by [Yann Lecun](http://yann.lecun.com/) and implement traffic signs recognition system. The dataset used to train, validate and test the CNN are the images from the German Traffic Sign Dataset.
 
 There are three importants files that explain and document the project:
 
