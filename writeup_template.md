@@ -26,11 +26,9 @@ The goals / steps of this project are the following:
 [image1]: ./images/visualization.png "Dataset distribution (train (B), validation (G), test (O))"
 [image2]: ./images/signs_representation.png "Dataset representation"
 [image3]: ./images/ext_60kmh.png "Preprocessing images"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image4]: ./images/descarga.png "Web images"
+[image5]: ./images/tv_1_accuracy.png
+[image6]: ./images/tv_1_loss.png
 
 ## Dependencies
 In order to fullfil all the specications of the project, I decided to use Google Colab. The idea is to speed up as much as possible the training process using the GPU/TPU functionality. 
@@ -324,7 +322,7 @@ I tunned four different hyperparamters to validate the system:
 
 * Learning rate: `0.001`
 * Batch size: `128`
-* Number of epeochs: `100`
+* Number of epeochs: `40`
 * Steps per epoch: `math.ceil(len(x_train) / batch_size)`
 
 I tried different values of each hyperparameters, specially for the `learning_rate` and the number of `epochs` until I decided to change all the proyecto to colab. batch sizes `(32, 64 and 128)` and `128` was a good balance between speed and accuracy.
@@ -333,6 +331,8 @@ I tried different values of each hyperparameters, specially for the `learning_ra
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 I started with the LeNet architecture witout any type of regularization and the system prepared for RGB images `(32,32,32,3)`. I trainned the CNN with the training dataset (without any preprocessing) and the results was not very good from what was expected, so clearly there was a problem of under fitting.
+
+![alt text][image5]![alt text][image6]
 
 ```
 Epoch 40/40
@@ -360,10 +360,9 @@ Accuracy on test dataset: 0.9617577195167542
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image4]
 
-The first image might be difficult to classify because ...
+The second image (the original) might be difficult to classify because the orientation of the worker in on the opposite direction compared with the data set. Then I've two options. The first one is to create a new dataset of images for this sign or flip manually the image to be coherent with the dataset. I choosed the second one. 
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
