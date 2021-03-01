@@ -23,8 +23,8 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/visualization.jpg "Dataset distribution (train (B), validation (G), test (O)"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
+[image1]: ./images/visualization.png "Dataset distribution (train (B), validation (G), test (O))"
+[image2]: ./images/signs_representation.png "Dataset representation"
 [image3]: ./examples/random_noise.jpg "Random Noise"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
@@ -93,14 +93,20 @@ train_counts = plt_bar_dataset(y_train, y_test, y_valid)
 
 In the next represent the distribution of the diferent signs on the `train dataset (blue)', 'validation dataset (orange)` and `test dataset (green)`. As we can see the distribution is not uniform and we have some `classes (signs)` with a very short ocurrence (ie: `sign_class = 0 (Speed limit (20km/h))` and other with very high ocurrence (ie: `sign_class = 1 (Speed limit (50km/h))`.
 
-
-
+![alt text][image1]
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+The next step is to analyze the images (color, blurring, etc.). The coder used to represent only the first image of each class on the dataset is the next one.
 
-![alt text][image1]
+![alt text][image2]
+
+As general onclusions:
+* The signs (classes) in the data set are not well balanced (not a lot of training examples for all classes)
+* Different quality of the images (some of them are very difficult for humans also)
+* Very extreme lighting conditions (night, day)
+
+As we will see later some preprocesing or data augmentation of the images will be needed to train sucessfully the CNN. The approach expoused in [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf) will be a good approach. 
 
 ### Design and Test a Model Architecture
 
