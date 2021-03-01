@@ -264,8 +264,8 @@ My final model consisted of the following layers, based on the LeNet architectur
 
 | Layer (type)         		|     Output Shape	        					| Params | Parameters|
 |:---------------------:|:---------------------------------------------:| :---------------------:|:---------------------:|
-| Input         		| 32x32x1 Grayscale image   							| ||
-| conv2d (Conv2D)     	| (None, 28, 28, 6)  	| 156|`conv1_filters, (5, 5), activation = 'relu', input_shape = (32, 32, 1)`|
+| Input         		| 32x32x1 Grayscale   							| ||
+| conv2d (Conv2D)     	| (None, 28, 28, 6)  	| 156|`conv1_filters, (5, 5), activation = 'relu'`|
 | max_pooling2d (MaxPooling2D)					|	(None, 14, 14, 6)											| 0|`pool_size = (2, 2), strides = 2, padding = 'SAME'`|
 | conv2d (Conv2D)     	| (None, 10, 10, 16)  	| 2416|`conv2_filters, (5, 5), activation = 'relu'`|
 | max_pooling2d (MaxPooling2D)					|	(None, 5, 5, 16)											| 0|`pool_size = (2, 2), strides = 2, padding = 'SAME'`|
@@ -274,8 +274,9 @@ My final model consisted of the following layers, based on the LeNet architectur
 | dropout (Dropout)					|	(None, 120)											|0|`rate = 0.5`|
 | dense_1 (Dense)					|	(None, 84)											|10164|`activation = 'relu'`|
 | dropout_1 (Dropout)					|	(None, 84)											|0|`rate = 0.5`|
-| dense_2 (Dense)|(None, 43)| 3655      |3655|`activation = 'relu`|
+| dense_2 (Dense)|(None, 43)|       |3655|`activation = 'relu`|
 
+|:------------:|:------------------------:| :------:|:---------------------:|
 |Total params:|64,511|
 |Trainable params:|64,511|
 |Non-trainable params:|0|
