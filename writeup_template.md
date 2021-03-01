@@ -35,7 +35,7 @@ The goals / steps of this project are the following:
 ## Dependencies
 In order to fullfil all the specications of the project, I decided to use Google Colab. The idea is to speed up as much as possible the training process using the GPU/TPU functionality. 
 
-[Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
 
 
 ## Writeup / README
