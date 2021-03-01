@@ -419,7 +419,9 @@ For the third the prediction is very good, the system is really sure that the si
 | 0.00			| Speed limit (20km/h)     							|
 
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+#### Conclusions
+
+I've learn a lot with the project, indeed was my first experience with neuronal networks. I know that the system is not perfect and I could have made many improvements like better augmentation (smarter strategy), L2 regularization but 96% of accuracy for the test set is avery good result for the first experience. 
+
 
 
