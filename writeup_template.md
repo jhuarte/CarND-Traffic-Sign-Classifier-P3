@@ -25,7 +25,7 @@ The goals / steps of this project are the following:
 
 [image1]: ./images/visualization.png "Dataset distribution (train (B), validation (G), test (O))"
 [image2]: ./images/signs_representation.png "Dataset representation"
-[image3]: ./examples/random_noise.jpg "Random Noise"
+[image3]: ./images/ext_60kmh.png "Preprocessing images"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
@@ -97,7 +97,33 @@ In the next represent the distribution of the diferent signs on the `train datas
 
 #### 2. Include an exploratory visualization of the dataset.
 
-The next step is to analyze the images (color, blurring, etc.). The coder used to represent only the first image of each class on the dataset is the next one.
+The next step is to analyze the images (color, blurring, etc.). The code used to represent only the first image of each class on the dataset is the next one.
+
+```python
+# Represent the first ocurrence on the train dataser of each classes (signals)
+
+def plot_images(images, labels):  
+  fig, axes = plt.subplots(5, 10 , figsize = (15 , 10))
+  fig.subplots_adjust(hspace = 0.2, wspace = 0.1)
+    
+  for idx, ax in enumerate(axes.flat):
+        if idx < n_classes:
+          ax.imshow(images[idx])
+          xlabel = "{0}".format(idx)
+          ax.set_xlabel(xlabel)
+        ax.set_xticks([])
+        ax.set_yticks([])    
+  plt.show()
+
+# Obtain the index of the first ocurrence for each signal
+idxes = []
+for sign in range(n_classes):
+  idx = (np.where(y_train == sign)[0][0])
+  idxes.append(idx)        
+
+# Plot one image for each class and the label
+plot_images(x_train[idxes], signals['SignName'])
+```
 
 ![alt text][image2]
 
@@ -112,11 +138,15 @@ As we will see later some preprocesing or data augmentation of the images will b
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+So, let's start with the fun part!. As we mention on the previous point some preprocessing should be done as suggest [Yann Lecun](http://yann.lecun.com/) in [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf). A preprocessing function has been designed that:
 
-Here is an example of a traffic sign image before and after grayscaling.
+* Converts images to grayscale using `OpenCV` function.
+* Apply CLAHE algorithm to equilization 
+* And perform a basic normalization image to a range of [-1:1]
 
-![alt text][image2]
+Here is an example of a traffic sign image before and after grayscaling (this images correspond to the new images used for the final section).
+
+![alt text][image3]
 
 As a last step, I normalized the image data because ...
 
