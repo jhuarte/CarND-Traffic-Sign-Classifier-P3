@@ -37,13 +37,24 @@ In order to fullfil all the specications of the project, I decided to use Google
 
 ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)
 
+A I've stored the dataset on google drive space, the first thing I did was to grant access to the working directory. For that purpose I create a variable named `root_dir` to point to my data workspace. 
 
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+```
+```python
+root_dir = '/content/drive/MyDrive/Colab Notebooks/CarND-Traffic-Sign-Classifier-Project/'
+```
+
+As default, colab use the version 2 of `tensorflow` at this moment, so all the code learned from the leassons have been updated to this version.
+
+```python 
+# Check the tensor flow version
+print(tf.__version__)
+2.4.1
+```
 ## Writeup / README
-
-
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ### Data Set Summary & Exploration
 
