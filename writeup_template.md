@@ -368,7 +368,7 @@ The second image (the original) might be difficult to classify because the orien
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
-Here are the results of the prediction:
+Here are the results of the prediction using the `p = model.predict(images)`:
 
 ![alt text][image3]
 
@@ -381,24 +381,43 @@ Here are the results of the prediction:
 | Turn right ahead			| Turn right ahead      							|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80% wich is worst than the accuracy measured with the testdataset. 
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+To calculate the softmax probabilities I used the `values, indices = tf.nn.top_k(tf.nn.softmax(p),5, sorted=True)` that return the probabilities for each prediction 
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+For the first image, the model is predict a stop sign (probability of 0.32) but it's a very low value.
 
-| Probability         	|     Prediction	        					| 
+| Probability			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| 0.32     		| Speed limit (60km/h)   									| 
+| 0.28    			| Double curve										|
+| 0.30					| Speed limit (80km/h)											|
+| 0.07	      		| Keep right						 				|
+| 0.03			| Bicycles crossing      							|
 
 
-For the second image ... 
+For the second image the prediction is much better, 0.92 of probability of been a `Stop`.
+
+| Probability			        |     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 0.92     		| Stop   									| 
+| 0.04    			| Speed limit (60km/h)										|
+| 0.02					| Go straight or right											|
+| 0.001	      		| Turn left ahead						 				|
+| 0.0004			| Ahead only      							|
+
+For the third the prediction is very good, the system is really sure that the sign is a `Yield`:
+
+| Probability			        |     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00     		| Yield   									| 
+| 0.00    			| Ahead only										|
+| 0.00					| Priority road											|
+| 0.00	      		| Turn left ahead					 				|
+| 0.00			| Speed limit (20km/h)     							|
+
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
