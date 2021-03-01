@@ -309,7 +309,7 @@ model.add(layers.Dense(num_classes))
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, at the begining I used the stotastic gradient descent optimizer but after some trials a research I decide to change tp the `Adam` optimizer, that is in general a better optimizaer in terms of performance. 
+To train the model, at the begining I used the stotastic gradient descent optimizer but after some trials a research I decide to change to ![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg) the `Adam` optimizer, that is in general a better optimizaer in terms of performance. 
 
 ```python
 pt = optimizers.Adam(learning_rate = 0.001)
