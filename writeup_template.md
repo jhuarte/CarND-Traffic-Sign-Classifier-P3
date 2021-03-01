@@ -1,12 +1,15 @@
 # **Traffic Sign Recognition** 
 
-## Writeup
+## Overview
 
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+On this project, I implemented a convolutional neural network (CNN's) based on the LeNet implementation to classify traffic signs. The dataset used to train, validate and test the CNN are the images from the German Traffic Sign Dataset.
 
+There are three importants files that explain and document the project:
+
+* the Ipython notebook with the code
+* the code exported as an html file
+* a writeup report (this document) 
 ---
-
-**Build a Traffic Sign Recognition Project**
 
 The goals / steps of this project are the following:
 * Load the data set (see below for links to the project data set)
