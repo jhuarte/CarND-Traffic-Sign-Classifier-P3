@@ -325,7 +325,7 @@ I tunned four different hyperparamters to validate the system:
 * Number of epeochs: `40`
 * Steps per epoch: `math.ceil(len(x_train) / batch_size)`
 
-I tried different values of each hyperparameters, specially for the `learning_rate` and the number of `epochs` until I decided to change all the proyecto to colab. batch sizes `(32, 64 and 128)` and `128` was a good balance between speed and accuracy.
+I tried different values of each hyperparameters, specially for the `learning_rate` and the number of `epochs` until I decided to change all the proyecto to colab. batch sizes `(32, 64 and 128)` and `128` was a good balance between speed and accuracy. As we can see on the section, from epoch `10` the accuracy is more os less stable.
 
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
@@ -364,19 +364,21 @@ Here are five German traffic signs that I found on the web:
 
 ![alt text][image4]
 
-The second image (the original) might be difficult to classify because the orientation of the worker in on the opposite direction compared with the data set. Then I've two options. The first one is to create a new dataset of images for this sign or flip manually the image to be coherent with the dataset. I choosed the second one. 
+The second image (the original) might be difficult to classify because the orientation of the worker in on the opposite direction compared with the data set. Then I've two options. The first one is to create a new dataset of images for this sign or flip manually the image to be coherent with the dataset. I choosed the second one just for simplicity.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
+![alt text][image3]
+
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
+| Road work    			| General caution 										|
 | Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| 60 km/h	      		| 60 km/h						 				|
+| Turn right ahead			| Turn right ahead      							|
 
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
