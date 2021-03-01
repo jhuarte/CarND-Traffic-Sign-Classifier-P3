@@ -332,7 +332,12 @@ I tried different values of each hyperparameters, specially for the `learning_ra
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-I started with the LeNet architecture witout any type of regularization and the system prepared for RGB images `(32,32,32,3)`. Since the first trainings
+I started with the LeNet architecture witout any type of regularization and the system prepared for RGB images `(32,32,32,3)`. I trainned the CNN with the training dataset (without any preprocessing) and the results was no very good.
+
+```Epoch 40/40
+1088/1088 [==============================] - 3s 3ms/step - loss: 0.4410 - accuracy: 0.8919 - val_loss: 0.4222 - val_accuracy: 0.8973
+```
+
 
 
 My final model results were:
