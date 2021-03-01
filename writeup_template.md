@@ -276,10 +276,11 @@ My final model consisted of the following layers, based on the LeNet architectur
 | dropout_1 (Dropout)					|	(None, 84)											|0|`rate = 0.5`|
 | dense_2 (Dense)|(None, 43)|       |3655|`activation = 'relu`|
 
-|:------------:|:------------------------:| :------:|:---------------------:|
-|Total params:|64,511|
-|Trainable params:|64,511|
-|Non-trainable params:|0|
+|   | |
+|:------------:|:------------------------:|
+| Total params:| 64,511|
+| Trainable params:| 64,511|
+| Non-trainable params:| 0|
 
 ```python
 # Parameters
