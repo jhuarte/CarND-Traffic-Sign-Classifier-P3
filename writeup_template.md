@@ -138,32 +138,129 @@ As we will see later some preprocesing or data augmentation of the images will b
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-So, let's start with the fun part!. As we mention on the previous point some preprocessing should be done as suggest [Yann Lecun](http://yann.lecun.com/) in [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf). A preprocessing function has been designed that:
+So, let's start with the fun part!. As we mention on the previous point some preprocessing should be done as suggest [Yann Lecun](http://yann.lecun.com/) in [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf). A `preprocessing(images)` function has been designed that:
+
+```python
+def preprocessing(images):    
+  """
+  Pre-process pipeline: grayscale transformation, equilization and normalization
+  
+  Parameters:
+    images (numpy.ndarray): (dim(images), 32, 32, 3)
+  Returns:
+    batch (numpy.ndarray): (dim(images), 32, 32, 1)
+  """      
+  shape = images.shape 
+  out_img_shape=(shape[1],shape[2],1)
+  batch = np.zeros((shape[0],shape[1],shape[2],1))
+    
+  for i in range(len(images)):
+    gray = apply_grayscale(images[i,:]  )        
+    clahe = apply_clahe(gray).reshape(out_img_shape)
+    norm = apply_normalize(clahe)        
+    batch[i] = norm
+  
+  return batch
+  ```
+
 
 * Converts images to grayscale using `OpenCV` function.
-* Apply CLAHE algorithm to equilization 
+
+```python
+def apply_grayscale(img):
+  """
+  Apply grayscale transformation using openCV function (cvtColor)
+    
+  Parameters:
+    img (numpy.ndarray): Color image
+
+  Returns:
+    img (numpy.ndarray): Grayscaled image    
+  """
+  shape = img.shape
+  img = np.array(img, dtype = np.uint8)    
+  gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  gray = gray[: , :, np.newaxis]
+  return gray
+```
+
+* Apply `CLAHE algorithm` to equilization 
+
+```python
+def apply_clahe(img):
+  """
+  Apply CLAHE (Adaptive histogram equalization) to the image (img)
+    
+  Parameters:
+    img (numpy.ndarray): Grayscaled image (unint8)
+
+  Returns:
+    img (numpy.ndarray): Equalizated image    
+  """    
+  clahe = cv2.createCLAHE(clipLimit = 4.0, tileGridSize = (4, 4))
+  clahe_img = clahe.apply(img)
+  return clahe_img
+  ```
+  
 * And perform a basic normalization image to a range of [-1:1]
 
-Here is an example of a traffic sign image before and after grayscaling (this images correspond to the new images used for the final section).
+```python
+def apply_normalize(img):
+  """
+  Normalize the image to (-1, 1) range. (other methods can be used like mean/std ...etc.)
+  
+  Parameters:
+    img (numpy.ndarray): Grayscaled image (unint8)
+  Returns:
+    img (numpy.ndarray): Normalized image    
+  """   
+  return (img - 128.) / 128.
+```
+
+Here are some examples of a traffic signs images before and after preprocessing (this images correspond to the new images used for the final section).
 
 ![alt text][image3]
 
-As a last step, I normalized the image data because ...
+I decided to generate additional data because as we can see on the training dataset histogram, the number of signals are not well balance and this would create some bias on the prdections done by the CNN. To add more data to the the data set, I used the following techniques because I tried to balance the number of class signs over the dataset. Basically the idea is to fix a minimun number of images for each classes and using the `ImageDataGenerator` function create new images. For simplicity I avoided to flip the images and keep the numbers and letters on the right direction (smarter augmentation could be done).
 
-I decided to generate additional data because ... 
+```python
+def augment_dataset(x_dataset, y_dataset, min_occurrence):
+  # Configure the image generator to create rescaled, shifted, rotated or zomm images (not flipped -> numbers and letters)
+  train_gen = tf.keras.preprocessing.image.ImageDataGenerator(height_shift_range = random.uniform(-0.4, 0.4),
+                                                              rotation_range = random.uniform(-15., 15.), 
+                                                              zoom_range = [random.uniform(0.7, 0.7),random.uniform(0.9, 0.9)], dtype = np.uint8 )
 
-To add more data to the the data set, I used the following techniques because ... 
+  # For each class (sign) check the number of ocurrences and complete as needed
+  for sign_class in range(n_classes):
+    # Prepare x for the first iteration
+    x = x_dataset[y_dataset == sign_class]
+    # Init for each class
+    x_dataset_augmented = np.zeros([1,32,32,3])
+    y_dataset_augmented = np.zeros([1])
 
-Here is an example of an original image and an augmented image:
+    while ((min_occurrence - len(x)) > 0):
+      it = train_gen.flow(x = x, y = None,
+                          batch_size = min_occurrence - len(x),
+                          shuffle = True)
+      batch = it.next()
+      # Update x to the next iteration
+      x = np.concatenate((x, x_dataset_augmented), axis = 0)
+      # Store augmented data 
+      x_dataset_augmented = np.concatenate((x_dataset_augmented, batch), axis = 0)
+      y_dataset_augmented = np.concatenate((y_dataset_augmented, np.full(batch.shape[0], sign_class)))      
 
-![alt text][image3]
+    # Update the data set
+    x_dataset = np.concatenate((x_dataset, x_dataset_augmented), axis = 0)
+    y_dataset = np.concatenate((y_dataset, y_dataset_augmented), axis = 0)
 
-The difference between the original data set and the augmented data set is the following ... 
+  return x_dataset, y_dataset
+ ```
+ 
 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-My final model consisted of the following layers:
+My final model consisted of the following layers, based on the LeNet architecture:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -177,7 +274,34 @@ My final model consisted of the following layers:
 |						|												|
 |						|												|
  
-
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 28, 28, 6)         156       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 14, 14, 6)         0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 10, 10, 16)        2416      
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 5, 5, 16)          0         
+_________________________________________________________________
+flatten (Flatten)            (None, 400)               0         
+_________________________________________________________________
+dense (Dense)                (None, 120)               48120     
+_________________________________________________________________
+dropout (Dropout)            (None, 120)               0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 84)                10164     
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 84)                0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 43)                3655      
+=================================================================
+Total params: 64,511
+Trainable params: 64,511
+Non-trainable params: 0
+_________________________________________________________________
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
