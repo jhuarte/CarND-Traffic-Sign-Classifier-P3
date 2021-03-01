@@ -262,19 +262,19 @@ def augment_dataset(x_dataset, y_dataset, min_occurrence):
 
 My final model consisted of the following layers, based on the LeNet architecture:
 
-| Layer (type)         		|     Output Shape	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x1 Grayscale image   							| 
-| conv2d (Conv2D)     	| (None, 28, 28, 6)  	|
-| max_pooling2d (MaxPooling2D)					|	(None, 14, 14, 6)											|
-| conv2d (Conv2D)     	| (None, 10, 10, 16)  	|
-| max_pooling2d (MaxPooling2D)					|	(None, 5, 5, 16)											|
-| flatten (Flatten)					|	(None, 400)											|
-| dense (Dense)					|	(None, 120)											|
-| dropout (Dropout)					|	(None, 120)											|
-| dense_1 (Dense)					|	(None, 84)											|
-| dropout_1 (Dropout)					|	(None, 84)											|
-| dense_2 (Dense)|(None, 43)| 3655      
+| Layer (type)         		|     Output Shape	        					| | |
+|:---------------------:|:---------------------------------------------:| :---------------------:|:---------------------:|
+| Input         		| 32x32x1 Grayscale image   							| ||
+| conv2d (Conv2D)     	| (None, 28, 28, 6)  	| ||
+| max_pooling2d (MaxPooling2D)					|	(None, 14, 14, 6)											| ||
+| conv2d (Conv2D)     	| (None, 10, 10, 16)  	| ||
+| max_pooling2d (MaxPooling2D)					|	(None, 5, 5, 16)											|||
+| flatten (Flatten)					|	(None, 400)											|||
+| dense (Dense)					|	(None, 120)											|||
+| dropout (Dropout)					|	(None, 120)											|||
+| dense_1 (Dense)					|	(None, 84)											|||
+| dropout_1 (Dropout)					|	(None, 84)											|||
+| dense_2 (Dense)|(None, 43)| 3655      |||
 
 
 =================================================================
