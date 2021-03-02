@@ -431,4 +431,27 @@ For the third the prediction is very good, the system is really sure that the si
 I've learn a lot with the project, indeed was my first experience with neuronal networks. I know that the system is not perfect and I could have made many improvements like better augmentation (smarter strategy), L2 regularization but 96% of accuracy for the test set is avery good result for the first experience. 
 
 
+#### Notes
+* The visualization of the architecture graph can be enlightening. [TensorBoard](https://www.tensorflow.org/tensorboard) is a very useful tool for that.
+* Here is a discussion on how to choose the [batch size](https://stats.stackexchange.com/questions/140811/how-large-should-the-batch-size-be-for-stochastic-gradient-descent) of Stochastic Gradient Descent.
+* Here is a discussion on the [Adam Optimizer](https://ruder.io/optimizing-gradient-descent/index.html#adam).
+* For hyperparameter optimization, you can refer to this [source](https://cs231n.github.io/neural-networks-3/#hyper).
+
+Things to consider at the time of designing a CNN:
+
+* Data preprocessing
+* Number and type of layers
+* Selection of the adequate optimizer
+* Tunning of hyperparameters
+* Model training
+* Model's assessment metric/benchmark
+
+The plot of the learning curve helps to see if there is a considerable gap between the training and validation accuracy. If there is one, the model may be overfitting or underfitting. More information about the learning curve here.
+The following regularization techniques can be used to minimize overfitting to training data(in addition to dropout and cross-validation that you already use):
+
+* [L2 Regularization](https://keras.rstudio.com/reference/regularizer_l1.html). Using lambda = 0.0001 which seemed to perform best. The important point here is that L2 loss should only include weights of the fully connected layers, and normally it doesn’t include bias term. The intuition behind it is that bias term is not contributing to overfitting, as it is not adding any new degree of freedom to a model. Here is [An Overview of Regularization Techniques in Deep Learning](https://www.analyticsvidhya.com/blog/2018/04/fundamentals-deep-learning-regularization-techniques/).
+
+* [Early stopping](https://deeplearning4j.konduit.ai/tuning-and-training/early-stopping).You can apply stopping with the patience of 100 epochs to capture the last best-performing weights and roll back when the model starts overfitting training data. A validation set [cross entropy loss](https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html) as an early stopping metric, the intuition behind using it instead of accuracy is that if your model is confident about its predictions it should generalize better. Please check this article to [know How to Stop Training Deep Neural Networks At the Right Time Using Early Stopping](https://machinelearningmastery.com/how-to-stop-training-deep-neural-networks-at-the-right-time-using-early-stopping/).
+
+* [Batch Normalization](https://towardsdatascience.com/batch-normalization-theory-and-how-to-use-it-with-tensorflow-1892ca0173ad) is not a regularization technique, but it helps neural network weights to convert faster and hence works well with early stopping.
 
